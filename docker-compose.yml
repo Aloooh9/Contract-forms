@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  tasheel-app:
+    build: .
+    container_name: forms
+    ports:
+      - "5000:5000"
+    restart: always
+    environment:
+      - FLASK_ENV=production
+    # If you decide to store the generated files on the server 
+    # instead of just downloading them, uncomment the lines below:
+    # volumes:
+    #   - ./output:/app/output
