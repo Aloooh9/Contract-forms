@@ -17,7 +17,7 @@ services:
       # The Cloudflare Tunnel
   tunnel:
     image: cloudflare/cloudflared:latest
-    container_name: cloudflared-tunnel
+    container_name: forms_tunnel
     restart: always
     environment:
       - TUNNEL_TOKEN=eyJhIjoiNWQzNzlmMTYyMzdhYWMwYzc5YWNhZTlkYmQ1M2ZjNzgiLCJ0IjoiNmIzZGYzYmEtOGI4OC00ZDAwLWJmNDMtMjc4N2FiOTcwNzdiIiwicyI6Ik1ERmtOMlU0TVdJdE5UZzJNeTAwTWpRMkxUbGlaVFl0TnpBME1qRmpORFkzWlRoaCJ9
