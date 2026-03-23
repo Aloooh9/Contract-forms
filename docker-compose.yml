@@ -13,3 +13,14 @@ services:
     # instead of just downloading them, uncomment the lines below:
     # volumes:
     #   - ./output:/app/output
+
+      # The Cloudflare Tunnel
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared-tunnel
+    restart: always
+    environment:
+      - TUNNEL_TOKEN=eyJhIjoiNWQzNzlmMTYyMzdhYWMwYzc5YWNhZTlkYmQ1M2ZjNzgiLCJ0IjoiNmIzZGYzYmEtOGI4OC00ZDAwLWJmNDMtMjc4N2FiOTcwNzdiIiwicyI6Ik1ERmtOMlU0TVdJdE5UZzJNeTAwTWpRMkxUbGlaVFl0TnpBME1qRmpORFkzWlRoaCJ9
+    command: tunnel --no-autoupdate run
+    depends_on:
+      - forms
