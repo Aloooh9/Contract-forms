@@ -2,35 +2,73 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TasheelApp - Document Generator</title>
     <style>
-        body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; line-height: 1.6; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-weight: bold; }
-        input, select { width: 100%; padding: 8px; margin-top: 5px; }
-        button { background: #007bff; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 4px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; max-width: 800px; margin: 40px auto; padding: 20px; }
+        .card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h2 { border-bottom: 2px solid #007bff; padding-bottom: 10px; color: #007bff; }
+        .form-group { margin-bottom: 20px; display: flex; flex-direction: column; }
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px; }
+        label { font-weight: bold; margin-bottom: 5px; font-size: 0.9em; }
+        input, select { padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1em; }
+        input:focus { border-color: #007bff; outline: none; }
+        .arabic-label { text-align: right; font-family: Arial, sans-serif; }
+        .rtl-input { text-align: right; direction: rtl; }
+        button { background: #28a745; color: white; border: none; padding: 15px; cursor: pointer; border-radius: 4px; font-size: 1.1em; width: 100%; transition: background 0.3s; }
+        button:hover { background: #218838; }
     </style>
 </head>
 <body>
-    <h2>Generate Legal Document</h2>
-    <form action="/generate" method="post">
-        <div class="form-group">
-            <label>Transaction Type:</label>
-            <select name="template_key" id="template_key" required>
-                {% for key, val in templates.items() %}
-                    <option value="{{ key }}">{{ val.title }}</option>
-                {% endfor %}
-            </select>
-        </div>
+    <div class="card">
+        <h2>Legal Document Generator / مولد الوثائق القانونية</h2>
+        <form action="/generate" method="post">
+            
+            <div class="form-group">
+                <label>Transaction Type / نوع المعاملة</label>
+                <select name="template_key" required>
+                    {% for key, val in templates.items() %}
+                        <option value="{{ key }}">{{ val.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-        <div id="fields">
-            <div class="form-group"><label>Company Name (CN):</label><input type="text" name="cn" required></div>
-            <div class="form-group"><label>Trade License Number (TLN):</label><input type="text" name="tln" required></div>
-            <div class="form-group"><label>Auditing Company Name (ACN):</label><input type="text" name="acn" required></div>
-            <div class="form-group"><label>Auditing Company Trade License (ACTL):</label><input type="text" name="actl" required></div>
-        </div>
+            <hr>
 
-        <button type="submit">Generate & Download Word File</button>
-    </form>
+            <div class="row">
+                <div class="form-group">
+                    <label>Company Name (English)</label>
+                    <input type="text" name="cn_en" placeholder="e.g. My Company LLC" required>
+                </div>
+                <div class="form-group">
+                    <label class="arabic-label">اسم الشركة (بالعربي)</label>
+                    <input type="text" name="cn_ar" class="rtl-input" placeholder="مثلاً: شركة جهتي ذ.م.م" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Trade License Number / رقم الرخصة التجارية</label>
+                <input type="text" name="tln" placeholder="e.g. 123456" required>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label>Auditor Name (English)</label>
+                    <input type="text" name="acn_en" placeholder="e.g. Global Auditors" required>
+                </div>
+                <div class="form-group">
+                    <label class="arabic-label">اسم المصفي / المدقق (بالعربي)</label>
+                    <input type="text" name="acn_ar" class="rtl-input" placeholder="مثلاً: مدققو الحسابات العالميون" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Auditor Trade License / رقم رخصة المصفي</label>
+                <input type="text" name="actl" placeholder="e.g. 789012" required>
+            </div>
+
+            <button type="submit">Generate Word Document / إنشاء ملف وورد</button>
+        </form>
+    </div>
 </body>
 </html>
