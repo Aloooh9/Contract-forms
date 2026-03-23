@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TasheelApp - Document Generator</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; line-height: 1.6; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; }
+        input, select { width: 100%; padding: 8px; margin-top: 5px; }
+        button { background: #007bff; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h2>Generate Legal Document</h2>
+    <form action="/generate" method="post">
+        <div class="form-group">
+            <label>Transaction Type:</label>
+            <select name="template_key" id="template_key" required>
+                {% for key, val in templates.items() %}
+                    <option value="{{ key }}">{{ val.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div id="fields">
+            <div class="form-group"><label>Company Name (CN):</label><input type="text" name="cn" required></div>
+            <div class="form-group"><label>Trade License Number (TLN):</label><input type="text" name="tln" required></div>
+            <div class="form-group"><label>Auditing Company Name (ACN):</label><input type="text" name="acn" required></div>
+            <div class="form-group"><label>Auditing Company Trade License (ACTL):</label><input type="text" name="actl" required></div>
+        </div>
+
+        <button type="submit">Generate & Download Word File</button>
+    </form>
+</body>
+</html>
